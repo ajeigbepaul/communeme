@@ -30,6 +30,7 @@ function TweetBox({ setTweets }: Props) {
     setImageUrlBox(false);
   };
   const postTweet = async () => {
+    const refreshToastnotify = toast.loading("Loading...");
     const tweetInfo: TweetBody = {
       text: input,
       username: session?.user?.name || "Unknown User",
@@ -43,7 +44,7 @@ function TweetBox({ setTweets }: Props) {
     const json = await result.json();
     const newTweets = await fetchTweet()
     setTweets(newTweets)
-    toast('Tweet Posted')
+   toast.success("Tweet Posted!", { id: refreshToastnotify });
     setInput('')
     setImage('')
     setImageUrlBox(false)

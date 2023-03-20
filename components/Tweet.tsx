@@ -28,6 +28,7 @@ function Tweet({ tweet }: Props) {
     refreshComments();
   }, []);
   const postComment = async () => {
+    const refreshToastnotify = toast.loading("Loading...");
     const commentInfo: CommentBody = {
       comment: input,
       username: session?.user?.name || "Unknown User",
@@ -43,7 +44,7 @@ function Tweet({ tweet }: Props) {
     setComments(newComment);
     setInput("");
     setCommentBox(false);
-    toast("comment made!!");
+   toast.success("Comment made!!", { id: refreshToastnotify });
     return json;
   };
   const handleComment = (e: React.FormEvent<HTMLFormElement>) => {
