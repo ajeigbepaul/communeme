@@ -19,6 +19,7 @@ function TweetBox({ setTweets }: Props) {
   const { data: session } = useSession();
   const [imageUrlBox, setImageUrlBox] = useState<Boolean>(false);
   const imageRef = useRef<HTMLInputElement>(null);
+ 
   const addImageToTweet = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -42,11 +43,12 @@ function TweetBox({ setTweets }: Props) {
     const json = await result.json();
     const newTweets = await fetchTweet()
     setTweets(newTweets)
-
     toast('Tweet Posted')
     setInput('')
     setImage('')
     setImageUrlBox(false)
+
+    return json
   };
   const handleTweet = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -88,7 +90,7 @@ function TweetBox({ setTweets }: Props) {
             </button>
           </div>
           {imageUrlBox && (
-            <form className="rounded-lg mt-5 bg-orange-300 py-2 px-4 flex">
+            <div className="rounded-lg mt-5 bg-orange-300 py-2 px-4 flex">
               <input
                 ref={imageRef}
                 type="text"
@@ -102,7 +104,7 @@ function TweetBox({ setTweets }: Props) {
               >
                 Add image
               </button>
-            </form>
+            </div>
           )}
           {image && (
             <img
